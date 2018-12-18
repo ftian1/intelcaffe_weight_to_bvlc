@@ -57,9 +57,9 @@ if __name__ == '__main__':
                 assert net.layers[j].type == 'BatchNorm' and net.layers[j + 1].type == 'Scale', 'batch_norm layer is not following a scale layer, it\'s wrong for pure caffe engine'
                 assert len(net.params[name]) == 3 and len(net.params[net._layer_names[j + 1]]) == 2, 'batch_norm layer should have 3 learnable parameters, scale layer should have 2 learnable parameters'
                 for m in range(len(net.params[name])):
-                    net.params[name][m].data = weight[m]
+                    net.params[name][m].data[...] = weight[m]
                 for n in range(len(net.params[net._layer_names[j + 1]])):
-                    net.params[net._layer_names[j + 1]][n].data = weight[3 + n]
+                    net.params[net._layer_names[j + 1]][n].data[...] = weight[3 + n]
                 continue
             for k in range(len(net.params[name])):
                 print name, k
